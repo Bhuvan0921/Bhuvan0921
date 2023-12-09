@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CAPTCHA Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: orange; /* Background color */
+    }
+    #captcha-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      border: 2px solid #ccc;
+      padding: 10px;
+      margin: 20px;
+      background-color: white; /* Background color for CAPTCHA box */
+      text-shadow: 0 0 2px rgba(0, 0, 0, 2.00); /* Add a slight blur effect */
+    }
+    #captcha-text {
+      margin-right: 10px; /* Add some space between CAPTCHA text and input field */
+    }
+    #captcha-input {
+      padding: 5px;
+      font-size: 16px;
+    }
+    #submit-button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #4CAF50; /* Green color for submit button */
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #user-captcha-box {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: bold;
+      border: 2px solid #ccc;
+      padding: 10px;
+      margin: 20px;
+      background-color: white; /* Background color for user-entered CAPTCHA box */
+    }
+    #user-captcha-input {
+      padding: 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="captcha-box">
+    <span id="captcha-text"></span>
+  </div>
+  <div id="user-captcha-box">
+    <input type="text" id="user-captcha-input" placeholder="Enter CAPTCHA">
+  </div>
+  <button id="submit-button" onclick="checkCaptcha()">Submit</button>
+
+  <script>
+    // Function to generate a random alphanumeric string for CAPTCHA
+    function generateCaptcha() {
+      var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      var captchaLength = 6; // Change the length of the CAPTCHA here
+      var captcha = '';
+      for (var i = 0; i < captchaLength; i++) {
+        captcha += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+      return captcha;
+    }
+
+    // Function to display the CAPTCHA text on the page
+    function displayCaptcha() {
+      var captchaText = generateCaptcha();
+      document.getElementById('captcha-text').textContent = captchaText;
+    }
+
+    // Function to check if the entered CAPTCHA is correct
+    function checkCaptcha() {
+      var enteredCaptcha = document.getElementById('user-captcha-input').value;
+      var captchaText = document.getElementById('captcha-text').textContent;
+      if (enteredCaptcha === captchaText) {
+        alert('CAPTCHA Correct! Proceed...');
+        // Add your logic for what to do next (e.g., submit form, redirect, etc.)
+      } else {
+        alert('CAPTCHA Incorrect! Please try again.');
+        displayCaptcha();
+        document.getElementById('user-captcha-input').value = '';
+      }
+    }
+
+    // Display CAPTCHA on page load
+    displayCaptcha();
+  </script>
+</body>
+</html>
